@@ -16,7 +16,7 @@ The website introduces a user who may be interested in learning Chinese to the l
 
 ## How to Run
 
-This project can be run by downloading the files and running it with the VSCode LiveServer extension.
+This project can be run by downloading the files and running it with the VSCode LiveServer extension or by publishing it with Github pages. It is available at this URL: https://amklin.github.io/Calligraphy-Simplified-Website/.
 
 ## Contributors
 
