@@ -1,0 +1,380 @@
+/*CSS rules are orgnaized thematically. First are more general rules regarding the whole site, 
+followed by page-specific or feature-specific rules. At the end are the media queries.*/
+
+/* Fonts: https://www.jianshu.com/p/44ef95b2c86f*/
+/*
+@font-face {
+    font-family: standardChinese;
+    src: url('fzktjw.ttf') format('truetype') ;
+}
+
+@font-face {
+    font-family: kaiChinese;
+    src: url('FZLiuGQKSJW.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: fancyKaiChinese;
+    src: url('FZYanZQKSJF.ttf') format('truetype');
+}
+*/
+@font-face {
+    font-family: "STKaiti";
+    src: url("/fonts/stkaiti.ttf") format('truetype');
+}
+
+/* Colors: https://coolors.co/23231a-222725-8f8389-ccd5ae-e9edc9-fefae0-faedcd-d4a373 */
+.paper{
+    background-color: #DFC89E;
+}
+
+.paper.accent-2{
+    background-color: #eed8ae;
+}
+
+.paper.accent-4{
+    background-color: #222725;
+}
+
+.paper.lighten-1{
+    background-color: #FEFAE0;
+}
+
+.paper.lighten-2{
+    background-color: #FAEDCD;
+}
+
+.paper.lighten-3{
+    background-color: #D4A373;
+}
+
+.paper.darken-1{
+    background-color: #E9EDC9;
+}
+
+.paper.darken-2{
+    background-color: #CCD5AE;
+}
+
+.paper.darken-3{
+    background-color: #8F8389;
+}
+
+.paper-text{
+    color: #23231A;
+}
+
+/* General rules*/
+body{
+    padding-left: 300px; 
+}
+
+.content{
+    margin: 0 1rem 0 1rem;
+}
+
+.information{
+    margin: 0 1rem 0 1rem;
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}  
+
+/*navbar */
+.sidenav{
+    z-index: 9999;
+}
+
+#menu-button {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+}
+
+.sidenav-trigger{
+    color: #222725;
+}
+
+.website-name {
+    font-size: 1.5rem;
+}
+
+/* Header */
+.header-img{
+    width: 100%;
+    /*Default image height for parallax is 500px*/
+    opacity: 1;
+    z-index: 20;
+    transition: opacity 200ms, z-index 200ms ;
+    transition-timing-function: ease-in;
+}
+
+.header-img:hover{
+    opacity: 0.7;
+    z-index: 0;
+}
+
+.header-text{
+    z-index: 10;
+    position: absolute;
+    left: 35%;
+    top: 100px;
+    font-family: STKaiti;
+}
+
+/* canvas controls buttons */
+menu {
+    --size: 2.5rem;
+    --radius: 8rem;
+    --padding: 2rem;
+    --toppadding: 5em;
+    --bg-color: #ffffff;
+    --fg-color: rgba(0, 0, 0, 0.7);
+    --hi-color: #000000;
+    
+    position: fixed;
+    top: var(--toppadding);
+    right: var(--padding);
+    
+  }
+  
+  menu > * {
+    position: absolute;
+    
+    display: grid;
+    place-content: center;
+    
+    border-radius: 50%;
+    border-color: black;
+    
+    background: var(--bg-color);
+    color: var(--fg-color);
+    
+    
+    text-decoration: none;
+    
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.6);
+  }
+  
+  menu > .action {
+    --factor: 0;
+    
+    width: var(--size);
+    height: var(--size);
+    right: calc(0.35 * var(--size));
+    bottom: calc(0.35 * var(--size));
+    
+    opacity: 0;
+    
+    
+    transform: rotate(calc(-1 * var(--angle))) translateY(calc(-1 * var(--radius) * var(--factor))) rotate(var(--angle));
+    
+    transition: transform 250ms ease-in-out, opacity 250ms ease-in-out, box-shadow 250ms ease-in-out, color 250ms ease-in-out;
+  }
+  
+  menu > .action:hover, menu > .trigger:hover {
+    color: var(--hi-color);
+
+    background-color: #c4e69f !important;
+    box-shadow: 0px 0px 0px 0.75rem rgba(0, 0, 0, 0.2);
+  }
+  
+  menu.open > .action {
+    --factor: 1;
+    
+    opacity: 1;
+  }
+  
+  menu > .action:nth-child(1) {
+    
+    --angle: 90deg;
+    transition-delay: 0ms;
+  }
+  
+  menu > .action:nth-child(2) {
+    --angle: 120deg;
+    transition-delay: 50ms;
+  }
+  
+  menu > .action:nth-child(3) {
+    --angle: 150deg;
+    transition-delay: 100ms;
+  }
+  
+  menu > .action:nth-child(4) {
+    --angle: 180deg;
+    transition-delay: 150ms;
+  }
+  
+  menu > .trigger {
+    width: calc(1.6 * var(--size));
+    height: calc(1.6 * var(--size));
+    bottom: 0;
+    right: 0;
+    
+    font-size: 2rem;
+    transition: box-shadow 250ms ease-in-out, color 250ms ease-in-out;
+  }
+  
+  menu > .trigger > i {
+    transition: transform 250ms ease-in-out;
+  }
+  
+  menu.open > .trigger > i {
+    transform: rotate(-135deg);
+    
+  }
+  
+  .zi{
+    z-index: 9999;
+  }
+
+ #customThicknessInput{
+    position: fixed;
+    
+    top: 12.25em;
+
+    right: 6.75em;
+    width: 50px;
+
+}
+
+#customColorPickInput{
+    position: fixed;
+    
+    top: 14em;
+
+    right: 2.9em;
+    width: 2.5em;
+
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 0.3em;
+}
+
+
+/* canvas */
+.canvas{
+    position: fixed;
+    z-index: 999;
+}
+
+/*Modal*/
+#help-button{
+    position: fixed;
+    bottom: 0.5rem;
+    right:0.5rem;
+    z-index: 9999;
+    background-color: #58462c;
+}
+
+/*firebase*/
+.firebase-buttons{
+    z-index: 999;
+}
+
+.navbar-firebase{
+    position: fixed;
+    left: 25px;
+    bottom: 75px;
+}
+
+/*index.html carousel*/
+.carousel .carousel-item {
+    width: 400px !important;
+    height: auto !important;
+}
+
+/*Radicals.html*/
+.card-title{
+    font-family: "STKaiti";
+    font-size: 30px !important;
+}
+
+.card-content
+{
+    font-family: "STKaiti";
+    font-size: 18px;
+}
+
+.radical-trace{
+    font-size: 75px;
+}
+
+/*strokes.html*/
+.normalChinese{
+     font-family: "STKaiti";
+     font-size: 50px;
+}
+
+.individualStroke{
+    /*font-family: "STKaiti";*/
+    font-size: 75px;
+}
+
+#strokes-page{
+    z-index: 0;
+}
+
+th{
+    font-weight: bold;
+}
+
+/*faq.html*/
+#collapsible-faq{
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+/*Example pages*/
+.chinese-content{
+    margin-top: 1rem;
+    font-family: "STKaiti";
+    font-size: 3.8rem;
+    letter-spacing: 0.3rem;
+}
+
+.chinese-video {
+    margin-top: 1rem;
+    width: 332px;
+    height: 187px;
+}
+
+/*Media queries*/
+
+/*small screens*/
+@media only screen and (max-width: 480px) {
+    #collapsible-faq{
+        margin: 1rem 0 0 0;
+    }
+}
+
+/*medium and small screens*/
+@media only screen and (max-width : 992px) {
+    body {
+      padding-left: 0;
+    }
+
+    #menu-button {
+        z-index:9998;
+    }
+
+    .header-img{
+        opacity: 0.4;
+        z-index: 0;
+    }
+
+
+    #header-text{
+        top: 30px;
+        left: 20%;
+    }
+
+    #header-text-no-opacity{
+        top: 30px;
+        left: 10%;
+    }
+
+}

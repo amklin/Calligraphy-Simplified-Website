@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--This template provides the boilerplate required to start a project with MaterializeCSS
+      -->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css via CDN link-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--If you import more than 1 cSS file, be aware that the styles are applied in the order they are linked-->
+  <link rel="stylesheet" href="./css/style.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strokes</title>
+</head>
+
+<!-- This is the body-->
+
+<body>
+  <!--navbar-->
+  <!-- Dropdown Structure -->
+  <ul id="writing-practice-examples" class="dropdown-content paper lighten-1">
+    <li><a href="#">Writing Practice<i class="material-icons right">arrow_drop_up</i></a></li>
+    <li><a href="./example1.html">三字经: Three Character Classic</a></li>
+    <li><a href="./example2.html">唐诗: Tang Dynasty Poems</a></li>
+    <li><a href="./example3.html">Strokes & Radicals</a></li>
+    <li><a href="./example4.html">Food!</a></li>
+    <li><a href="./example5.html">For Fun: Other Scripts</a></li>
+  </ul>
+  <!--sidenav-->
+  <ul id="slide-out" class="sidenav sidenav-fixed paper lighten-1">
+    <li class="center-align website-name"><b><i class="material-icons">brush</i> Calligraphy Simplified</b></li>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./faq.html">FAQs</a></li>
+    <li class="active"><a href="./strokes.html">Stroke Basics</a></li>
+    <li><a href="./radicals.html">Radicals</a></li>
+    <li><a class="dropdown-trigger" href="#" data-target="writing-practice-examples">Writing Practice<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="./saved-images.html">View Saved Images</a></li>
+    <div class="navbar-firebase">
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="insert-modal"><i class="material-icons left">add_circle</i>Insert</a>
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="update-modal"><i class="material-icons left">update</i>Update</a>
+    </div>
+  </ul>
+
+  <!--menu button for tablet/mobile-->
+  <div id="menu-button" class="show-on-med-and-down">
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+
+  <!--Canvas-->
+  <div class='canvas'>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Canvas control Buttons -->
+  <menu class="close zi">
+    <!-- turns on canvas initially and functions as reset/clear button after initialization -->
+    <button id="reset" class="action"><i class="fas fa-info fa-2x material-icons">refresh</i></button>
+    <!--changes visibility of the canvas for the user but doesn't clear it-->
+    <button id="onoff" class="action"><i class="fas fa-question fa-2x material-icons">visibility</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the range input below allows user to change thickness of stroke-->
+    <button id="thickness" class="fas fa-clock fa-2x action"><i class="material-icons">line_weight</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the color input below allows user to change color of stroke-->
+    <button id="colorpick" class="fas fa-gift fa-2x action"><i class="material-icons">color_lens</i></button>
+
+    <!--thickness changing input below button-->
+    <input type="range" id="customThicknessInput" min="1" max="20" value="5" step="1" style="display:none"><i
+      class="fas fa-clock fa-2x"></i></input>
+
+    <!--color changing input below button-->
+    <div>
+      <input type="color" id="customColorPickInput" style="display:none">
+    </div>
+
+    <!--main button that opens the series of buttons-->
+    <button class="trigger" id="settings"><i class="fas fa-plus fa-1x material-icons">settings</i></button>
+  </menu>
+
+  <!--Help button triggering modal popup-->
+  <div>
+    <!-- Modal Trigger -->
+    <button data-target="modal1" class="btn modal-trigger" id="help-button"><i
+        class="material-icons">help_outline</i></button>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Canvas Instructions</h4>
+        <p>To use the canvas, click on <i class="material-icons">settings</i> in the upper right corner of the screen.
+        </p>
+        <p>Each of the buttons that pops up toggles a different setting.</p>
+        <p><i class="material-icons">refresh</i>: Clears the canvas. You can also use the escape key to clear the
+          canvas.</p>
+        <p><i class="material-icons">visibility</i>: Turns the canvas on and off without erasing what is currently on
+          the
+          canvas.</p>
+        <p><i class="material-icons">line_weight</i>: Use the slider below the icon to adjust the line width.</p>
+        <p><i class="material-icons">color_lens</i>: Use the color picker below the icon to change the color.</p>
+        <p>The canvas default is off. To turn on the canvas for the first time use the <i
+            class="material-icons">refresh</i>
+          button.</p>
+        <p>Warning: Don't change the window size while writing. If you change the window size, use the <i
+            class="material-icons">refresh</i> button to ensure that everything functions correctly.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-paper btn-flat">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <!--Firebase modal asking for username and password-->
+  <div id="insert-modal" class="modal">
+    <div class="modal-content">
+      <div class="input-field">
+        <input id="username-text-insert" type="text" class="validate">
+        <label for="username-text-insert">Username</label>
+      </div>
+    
+      <div class="input-field">
+        <input id="password-text-insert" type="password" class="validate">
+        <label for="password-text-insert">Password</label>
+      </div>
+
+      <div class="input-field">
+        <textarea id="image-description-insert" class="materialize-textarea"></textarea>
+        <label for="image-description-insert">Image Description</label>
+      </div>
+
+      <a class="waves-effect waves-green light-green btn firebase-buttons" id="insert-btn"><i class="material-icons left">add_circle</i>Insert</a>
+    </div>
+  </div>
+
+  <div id="update-modal" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+          <input id="username-text-update" type="text" class="validate">
+          <label for="username-text-update">Username</label>
+        </div>
+      
+        <div class="input-field">
+          <input id="password-text-update" type="password" class="validate">
+          <label for="password-text-update">Password</label>
+        </div>
+
+        <div class="input-field">
+          <textarea id="image-description-update" class="materialize-textarea"></textarea>
+          <label for="timage-description-update">Image Description</label>
+        </div>
+
+        <a class="waves-effect waves-green light-green btn firebase-buttons" id="update-btn"><i class="material-icons left">update</i>Update</a>
+
+    </div>
+  </div>
+
+  <!--Header with parallax image-->
+  <div class="parallax-container header-img">
+    <div class="parallax"><img src='Images/strokesHeader.jpg' />
+      <!--Source: https://chiculture.org.hk/sites/mainsite/files/styles/free_style_image_styles/public/2020-05/20310phn003_01.jpg?itok=ceu8QdFM-->
+    </div>
+  </div>
+  <h1 class="paper-text header-text">Strokes</h1>
+
+  <!--main information content-->
+  <div class="information">
+    <div class="strokes-information">
+      <div class="content" id="strokes-page">
+        <img src='Images/strokesYong.png' />
+          <!--Source: https://studycli.org/wp-content/uploads/2021/06/yong-description-01.png-->
+        <br>
+        <figurecaption>The Character 永 (yǒng) utilizes a variety of stroke types, which you will learn on this page!
+        </figurecaption>
+
+        <!--Basic Strokes: Table-->
+        <h2 class="paper-text">Basic Strokes</h2>
+
+        <table class="striped">
+          <th>
+          <td>Chinese Name</td>
+          <td>Stroke</td>
+          <td>English Name</td>
+          <td>Example Characters</td>
+          <td>Stroke Direction</td>
+          </th>
+          <tr>
+            <td>1. </td>
+            <td>点 diǎn</td>
+            <td class="individualStroke">丶</td>
+            <td>Dot</td>
+            <td class="normalChinese">穴 火 点 </td>
+            <td>top left to bottom right</td>
+          </tr>
+          <tr>
+            <td>2. </td>
+            <td>横 héng</td>
+            <td class="individualStroke">一</td>
+            <td>Horizontal</td>
+            <td class="normalChinese">一 二 三 兰</td>
+            <td>left to right</td>
+          </tr>
+          <tr>
+            <td>3. </td>
+            <td>竖 shù</td>
+            <td class="individualStroke">丨</td>
+            <td>Vertical</td>
+            <td class="normalChinese">木 刚 旧</td>
+            <td>top to down</td>
+          </tr>
+          <tr>
+            <td>4. </td>
+            <td>撇 piě</td>
+            <td class="individualStroke">丿</td>
+            <td>Throw (left-slanting downward)</td>
+            <td class="normalChinese">大 义 天</td>
+            <td>top to bottom left</td>
+          </tr>
+          <tr>
+            <td>5. </td>
+            <td>捺 nà</td>
+            <td class="individualStroke">㇏</td>
+            <td>Press (right-slanting downward)</td>
+            <td class="normalChinese">人 夫 处</td>
+            <td>top to bottom right</td>
+          </tr>
+          <tr>
+            <td>6. </td>
+            <td>提 tí</td>
+            <td class="individualStroke">㇀</td>
+            <td>Lift (upward horizontal)</td>
+            <td class="normalChinese">地 河 扑</td>
+            <td>bottom left to top right</td>
+          </tr>
+        </table>
+
+        <!--Combined Strokes-->
+        <!--Source: https://baike.baidu.com/item/%E7%AC%94%E7%94%BB/3040863?fr=aladdin-->
+        <!--https://en.wikipedia.org/wiki/Stroke_(CJK_character)-->
+
+        <h2 class="paper-text">Combined Strokes</h2>
+
+        <p>Many other strokes most of them are combinations or variations of the basic strokes! Here are some commonly
+          used combination strokes in regular Chinese print kai font: </p>
+
+        <!--Horizontal Strokes Table-->
+        <h3 class="paper-text">Combination Strokes: Horizontal</h3>
+        <table class="striped">
+          <th>
+          <td>Chinese Name</td>
+          <td>Stroke</td>
+          <td>English Name</td>
+          <td>Example Characters</td>
+          <td>Stroke Direction</td>
+          </th>
+          <tr>
+            <td>1. </td>
+            <td>横折 héng zhé</td>
+            <td class="individualStroke">𠃍</td>
+            <td>Horizontal Fold/Break</td>
+            <td class="normalChinese">书 口 五</td>
+            <td>up to down or left to right</td>
+          </tr>
+          <tr>
+            <td>2. </td>
+            <td>横钩 héng gōu</td>
+            <td class="individualStroke">乛</td>
+            <td>Horizontal Hook</td>
+            <td class="normalChinese">穴 茅 买</td>
+            <td>across and hook</td>
+          </tr>
+          <tr>
+            <td>3. </td>
+            <td>横撇 héng piě</td>
+            <td class="individualStroke">㇇</td>
+            <td>Horizontal Throw</td>
+            <td class="normalChinese">邓 又 叉</td>
+            <td>across to left bottom</td>
+          </tr>
+          <tr>
+            <td>4. </td>
+            <td>横折钩 héng zhé gōu</td>
+            <td class="individualStroke">𠃌</td>
+            <td>Horizontal Fold Hook</td>
+            <td class="normalChinese">为 勾 有</td>
+            <td>across, down, hook</td>
+          </tr>
+          <tr>
+            <td>5. </td>
+            <td>横折提 héng zhé tí</td>
+            <td class="individualStroke">㇊</td>
+            <td>Horizontal Fold Lift</td>
+            <td class="normalChinese">为 勾 有</td>
+            <td>across, down, up to right</td>
+          </tr>
+          <tr>
+            <td>6. </td>
+            <td>横折弯 héng zhé wān</td>
+            <td class="individualStroke">㇍</td>
+            <td>Horizontal Fold Curve</td>
+            <td class="normalChinese">朵 船 没</td>
+            <td>across, down, curve to right</td>
+          </tr>
+          <tr>
+            <td>7. </td>
+            <td>横折折 héng zhé zhé</td>
+            <td class="individualStroke">㇅</td>
+            <td>Horizontal Fold x2 </td>
+            <td class="normalChinese">凹</td>
+            <td>across, down, right</td>
+          </tr>
+          <tr>
+            <td>8. </td>
+            <td>横斜钩 héng xié gōu</td>
+            <td class="individualStroke">⺄</td>
+            <td>Horizontal Slant Hook</td>
+            <td class="normalChinese">飞 风 气</td>
+            <td>across, down, right, down</td>
+          </tr>
+          <tr>
+            <td>9. </td>
+            <td>横折弯钩 héng zhé wān gōu</td>
+            <td class="individualStroke">㇈/乙</td>
+            <td>Horizontal Fold Curve Hook</td>
+            <td class="normalChinese">乙 凡 九</td>
+            <td>across, down, curve to right, hook</td>
+          </tr>
+          <tr>
+            <td>10. </td>
+            <td>横撇弯钩 héng piě wān gōu</td>
+            <td class="individualStroke">㇌</td>
+            <td>Horizontal Throw Curve Hook</td>
+            <td class="normalChinese">陈 邮 部</td>
+            <td>across, throw, curve down, hook</td>
+          </tr>
+          <tr>
+            <td>11. </td>
+            <td>横折折撇 héng zhé zhé piě</td>
+            <td class="individualStroke">㇋</td>
+            <td>Horizontal Fold x2 Throw</td>
+            <td class="normalChinese">陈 邮 部</td>
+            <td>across, fold, fold, throw</td>
+          </tr>
+          <tr>
+            <td>12. </td>
+            <td>横折折折钩 héng zhé zhé zhé gōu</td>
+            <td class="individualStroke">𠄎</td>
+            <td>Horizontal Fold x3 hook</td>
+            <td class="normalChinese">乃 奶 仍</td>
+            <td>across, down, right, down, hook</td>
+          </tr>
+          <tr>
+            <td>13. </td>
+            <td>横折折折 héng zhé zhé zhé</td>
+            <td class="individualStroke">㇎</td>
+            <td>Horizontal Fold x3</td>
+            <td class="normalChinese">凸</td>
+            <td>across, down, right, down</td>
+          </tr>
+        </table>
+
+        <!--Vertical Strokes Table-->
+        <h3 class="paper-text">Combination Strokes: Vertical</h3>
+        <table class="striped">
+          <th>
+          <td>Chinese Name</td>
+          <td>Stroke</td>
+          <td>English Name</td>
+          <td>Example Characters</td>
+          <td>Stroke Direction</td>
+          </th>
+          <tr>
+            <td>1. </td>
+            <td>竖折 shù zhé</td>
+            <td class="individualStroke">𠃊</td>
+            <td>Vertical Fold/Break</td>
+            <td class="normalChinese">亡 山 互</td>
+            <td>down to right</td>
+          </tr>
+          <tr>
+            <td>2. </td>
+            <td>竖钩 shù gōu</td>
+            <td class="individualStroke">亅</td>
+            <td>Vertical Hook</td>
+            <td class="normalChinese">小 水 丁</td>
+            <td>down and hook</td>
+          </tr>
+          <tr>
+            <td>3. </td>
+            <td>竖提 shù tí</td>
+            <td class="individualStroke">𠄌</td>
+            <td>Vertical Lift</td>
+            <td class="normalChinese">凉 以 比</td>
+            <td>down and lift to right</td>
+          </tr>
+          <tr>
+            <td>4. </td>
+            <td>竖弯 shù wān</td>
+            <td class="individualStroke">㇄</td>
+            <td>Vertical Curve Hook</td>
+            <td class="normalChinese">四 西 酉</td>
+            <td>down and curve to right</td>
+          </tr>
+          <tr>
+            <td>5. </td>
+            <td>竖弯钩 shù wān gōu</td>
+            <td class="individualStroke">乚</td>
+            <td>Vertical Curve Hook</td>
+            <td class="normalChinese">扎 花 完</td>
+            <td>down, curve to right, hook</td>
+          </tr>
+          <tr>
+            <td>6. </td>
+            <td>竖折撇 shù zhé piě</td>
+            <td class="individualStroke">ㄣ</td>
+            <td>Vertical Fold Throw</td>
+            <td class="normalChinese">专</td>
+            <td>down (left), right, down to left</td>
+          </tr>
+          <tr>
+            <td>7. </td>
+            <td>竖折折 shù zhé zhé</td>
+            <td class="individualStroke">𠃑</td>
+            <td>Vertical Fold x2 </td>
+            <td class="normalChinese">鼎</td>
+            <td>down, right, down</td>
+          </tr>
+          <tr>
+            <td>8. </td>
+            <td>竖折折钩 shù zhé zhé gōu</td>
+            <td class="individualStroke">㇉</td>
+            <td>Vertical Fold x2 Hook</td>
+            <td class="normalChinese">弯 弟 号</td>
+            <td>down, right, down, hook</td>
+          </tr>
+          <tr>
+            <td>9. </td>
+            <td>撇点 piě diǎn</td>
+            <td class="individualStroke">𡿨</td>
+            <td>Throw Dot</td>
+            <td class="normalChinese">女 巡 甾</td>
+            <td>throw to left, dot to right</td>
+          </tr>
+          <tr>
+            <td>10. </td>
+            <td>撇折 piě zhé</td>
+            <td class="individualStroke">𠃋</td>
+            <td>Throw Fold</td>
+            <td class="normalChinese">去 公 玄</td>
+            <td>throw to left, fold to right</td>
+          </tr>
+          <tr>
+            <td>11. </td>
+            <td>斜钩 xié gōu</td>
+            <td class="individualStroke">㇂</td>
+            <td>Slant Hook</td>
+            <td class="normalChinese">戈 我 战</td>
+            <td>curve down to right, hook</td>
+          </tr>
+          <tr>
+            <td>12. </td>
+            <td>弯钩 wān gōu</td>
+            <td class="individualStroke">㇁</td>
+            <td>Curved hook</td>
+            <td class="normalChinese">了 狗 猪</td>
+            <td>curved down, hook</td>
+          </tr>
+          <tr>
+            <td>13. </td>
+            <td>卧钩 gōu</td>
+            <td class="individualStroke">㇃</td>
+            <td>Reclining Hook</td>
+            <td class="normalChinese">心 必 沁</td>
+            <td>curve to bottom right, hook</td>
+          </tr>
+        </table>
+        <p>Note that there are still more strokes! Some of them are not commonly used or aren't available in text, so
+          they haven't been included here.</p>
+
+      </div>
+    </div>
+
+    <!--Footer-->
+    <footer class="page-footer paper">
+      <div class="footer-copyright">
+        <div class="container black-text">
+          © 2021 Calligraphy Simplified <br>
+          Created with ♡ by Jue Gong and Amanda Lin
+        </div>
+      </div>
+    </footer>
+
+    <!--JavaScript & JQuery CDN links at end of body for optimized loading-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./js/canvas.js"></script>
+    <script src="./js/materialize.js"></script>
+    <script type="module" src="./js/firebase.js"></script>
+    <!-- Here is a comment -->
+</body>
+</div>
+
+
+</html>

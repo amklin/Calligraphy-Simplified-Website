@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--This template provides the boilerplate required to start a project with MaterializeCSS-->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css via CDN link-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--If you import more than 1 cSS file, be aware that the styles are applied in the order they are linked-->
+  <link rel="stylesheet" href="./css/style.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>唐诗 | Tang Dynasty Poems</title>
+</head>
+
+<!-- This is the body-->
+
+<body>
+  <!--navbar-->
+  <!-- Dropdown Structure -->
+  <ul id="writing-practice-examples" class="dropdown-content paper lighten-1">
+    <li><a href="#">Writing Practice<i class="material-icons right">arrow_drop_up</i></a></li>
+    <li><a href="./example1.html">三字经: Three Character Classic</a></li>
+    <li class="active"><a href="./example2.html">唐诗: Tang Dynasty Poems</a></li>
+    <li><a href="./example3.html">Strokes & Radicals</a></li>
+    <li><a href="./example4.html">Food!</a></li>
+    <li><a href="./example5.html">For Fun: Other Scripts</a></li>
+  </ul>
+  <!--sidenav-->
+  <ul id="slide-out" class="sidenav sidenav-fixed paper lighten-1">
+    <li class="center-align website-name"><b><i class="material-icons">brush</i> Calligraphy Simplified</b></li>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./faq.html">FAQs</a></li>
+    <li><a href="./strokes.html">Stroke Basics</a></li>
+    <li><a href="./radicals.html">Radicals</a></li>
+    <li class="active"><a class="dropdown-trigger" href="#" data-target="writing-practice-examples">Writing Practice<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="./saved-images.html">View Saved Images</a></li>
+    <div class="navbar-firebase">
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="insert-modal"><i class="material-icons left">add_circle</i>Insert</a>
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="update-modal"><i class="material-icons left">update</i>Update</a>
+    </div>
+  </ul>
+
+  <!--menu button for tablet/mobile-->
+  <div id="menu-button" class="show-on-med-and-down">
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+
+  <!--Canvas-->
+  <div class='canvas'>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Canvas control buttons Buttons -->
+  <menu class="close zi">
+    <!-- turns on canvas initially and functions as reset/clear button after initialization -->
+    <button id="reset" class="action"><i class="fas fa-info fa-2x material-icons">refresh</i></button>
+    <!--changes visibility of the canvas for the user but doesn't clear it-->
+    <button id="onoff" class="action"><i class="fas fa-question fa-2x material-icons">visibility</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the range input below allows user to change thickness of stroke-->
+    <button id="thickness" class="fas fa-clock fa-2x action"><i class="material-icons">line_weight</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the color input below allows user to change color of stroke-->
+    <button id="colorpick" class="fas fa-gift fa-2x action"><i class="material-icons">color_lens</i></button>
+
+    <!--thickness changing input below button-->
+    <input type="range" id="customThicknessInput" min="1" max="20" value="5" step="1" style="display:none"><i
+      class="fas fa-clock fa-2x"></i></input>
+
+    <!--color changing input below button-->
+    <div>
+      <input type="color" id="customColorPickInput" style="display:none">
+    </div>
+
+    <!--main button that opens the series of buttons-->
+    <button class="trigger" id="settings"><i class="fas fa-plus fa-1x material-icons">settings</i></button>
+  </menu>
+
+  <!--Help button triggering modal popup-->
+  <div>
+    <!-- Modal Trigger -->
+    <button data-target="modal1" class="btn modal-trigger" id="help-button"><i
+        class="material-icons">help_outline</i></button>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Canvas Instructions</h4>
+        <p>To use the canvas, click on <i class="material-icons">settings</i> in the upper right corner of the screen.
+        </p>
+        <p>Each of the buttons that pops up toggles a different setting.</p>
+        <p><i class="material-icons">refresh</i>: Clears the canvas. You can also use the escape key to clear the
+          canvas.</p>
+        <p><i class="material-icons">visibility</i>: Turns the canvas on and off without erasing what is currently on
+          the
+          canvas.</p>
+        <p><i class="material-icons">line_weight</i>: Use the slider below the icon to adjust the line width.</p>
+        <p><i class="material-icons">color_lens</i>: Use the color picker below the icon to change the color.</p>
+        <p>The canvas default is off. To turn on the canvas for the first time use the <i
+            class="material-icons">refresh</i>
+          button.</p>
+        <p>Warning: Don't change the window size while writing. If you change the window size, use the <i
+            class="material-icons">refresh</i> button to ensure that everything functions correctly.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-paper btn-flat">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <!--Firebase modal asking for username and password-->
+  <div id="insert-modal" class="modal">
+    <div class="modal-content">
+      <div class="input-field">
+        <input id="username-text-insert" type="text" class="validate">
+        <label for="username-text-insert">Username</label>
+      </div>
+    
+      <div class="input-field">
+        <input id="password-text-insert" type="password" class="validate">
+        <label for="password-text-insert">Password</label>
+      </div>
+
+      <div class="input-field">
+        <textarea id="image-description-insert" class="materialize-textarea"></textarea>
+        <label for="image-description-insert">Image Description</label>
+      </div>
+
+      <a class="waves-effect waves-green light-green btn firebase-buttons" id="insert-btn"><i class="material-icons left">add_circle</i>Insert</a>
+    </div>
+  </div>
+
+  <div id="update-modal" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+          <input id="username-text-update" type="text" class="validate">
+          <label for="username-text-update">Username</label>
+        </div>
+      
+        <div class="input-field">
+          <input id="password-text-update" type="password" class="validate">
+          <label for="password-text-update">Password</label>
+        </div>
+
+        <div class="input-field">
+          <textarea id="image-description-update" class="materialize-textarea"></textarea>
+          <label for="timage-description-update">Image Description</label>
+        </div>
+
+        <a class="waves-effect waves-green light-green btn firebase-buttons" id="update-btn"><i class="material-icons left">update</i>Update</a>
+
+    </div>
+  </div>
+
+  <!--header with parallax image-->
+  <div class="parallax-container header-img">
+    <div class="parallax"><img
+        src='Images/tangPoemsHeaderImg.jpeg' /></div>
+        <!--Source: http://m.zjgf88.com/uploads/20191228/1577514018508056.jpeg-->
+        <!--from: http://m.zjgf88.com/article/20191228142050.html-->
+  </div>
+  <h1 class="paper-text header-text">Example 2: 唐诗三百首</h1>
+
+  <!--main information section-->
+  <div class="information">
+    <div class="english-description">
+      <p>These are a selection of poems written during the Tang Dynasty (618–690, 705–907 CE).</p>
+    </div>
+
+    <hr>
+
+    <!--Poem 1: 登鹳雀楼 (Climbing Stork Tower)-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>This poem is about climbing the Stork Tower and the views that are visible there. The Stork Tower is a
+            multi-level pagoda located on the shores of the Yellow River in Puzhou, Shanxi, China.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/rMwl_F7YJ50" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      登鹳雀楼 <br>
+      王之涣 〔唐代〕<br>
+      白日依山尽，黄河入海流。<br>
+      欲穷千里目，更上一层楼。<br>
+    </div>
+
+    <hr>
+
+    <!--Poem 2: Quiet Night Thoughts-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>This poem is about the thoughts the poet has at night. He observes the way the moon is shining and is
+            reminded of how he misses his homeland.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/xnWw2gbNw4U" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      静夜思<br>
+      李白 〔唐代〕<br>
+      床前明月光，疑是地上霜。<br>
+      举头望明月，低头思故乡。<br>
+    </div>
+
+    <hr>
+
+    <!--Poem 3: Yearning-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>The poem focuses on Chinese red beans, which grow in southern parts of China. 
+            These beans are also called 相思子 (beans of longing). Thus, the poet 
+            expresses longing through the symbolism of the red beans.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/SI_Qy3vxQgM" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      相思<br>
+      王维 〔唐代〕<br>
+      红豆生南国，春来发几枝。<br>
+      愿君多采撷，此物最相思。<br>
+    </div>
+
+    <hr>
+
+    <!--Poem 4: Bamboo Grove Pavillion-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>This poem is about someone sitting alone in the bamboo grove, far away from other people.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/Bi_bfwnCrcM" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      竹里馆<br>
+      王维 〔唐代〕<br>
+      独坐幽篁里，弹琴复长啸。<br>
+      深林人不知，明月来相照。<br>
+    </div>
+    <hr>
+
+    <!--Poem 5: The Deer Enclosure-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>This poem is about someone observing the empty mountains. Although he does not see people, he hears their
+            voices. The sun shines and reflects on the greenery.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/6msd4mKUjPo" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      鹿柴<br>
+      王维 〔唐代〕<br>
+      空山不见人，但闻人语响。<br>
+      返景入深林，复照青苔上。<br>
+    </div>
+    <hr>
+
+    <!--Poem 6: Thinking of my Brothers on the Double Ninth Festival-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>This poem is about someone all alone in a different city and thinking about their brothers on the double
+            ninth festival (September 9th of the old Chinese calendar).</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/berURtfPzvs" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      九月九日忆山东兄弟<br>
+      王维 〔唐代〕<br>
+      独在异乡为异客，<br>每逢佳节倍思亲。<br>
+      遥知兄弟登高处，<br>遍插茱萸少一人。<br>
+    </div>
+    <hr>
+
+    <!--Poem 7: Bidding Farewell at Yellow Crane Tower-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>This poem is about someone saying farewell to one of their friends at the Yellow Crane Tower. The Yellow
+            Crane Tower is on the shore of the Yangtze River in Wuhan, Hubei, China.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/Nj__yHmC0Ms" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      黄鹤楼送孟浩然之广陵<br>
+      李白 〔唐代〕<br>
+      故人西辞黄鹤楼，<br>烟花三月下扬州。<br>
+      孤帆远影碧空尽，<br>唯见长江天际流。<br>
+    </div>
+    <hr>
+
+    <!--Poem 8: Red Cliff-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>The Tang Dynasty poet passed by the region of the Red Cliff (now in Hubei Province) and contemplates the 
+            decisive Battle of Red Cliffs at the end of the Han Dynasty. He awed at the remaining artifacts of the battle.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/XUCmcaq2e6U" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      赤壁<br>
+      杜牧 〔唐代〕<br>
+      折戟沉沙铁未销，<br>自将磨洗认前朝。<br>
+      东风不与周郎便，<br>铜雀春深锁二乔。<br>
+    </div>
+    <hr>
+
+    <!--Poem 9: Wuyi Lane-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>Remembers the older properity of the region of 朱雀桥 and 乌衣巷 (of Eastern Jin Dynasty Nanjing), 
+            the poem sighs at bare and desolate grasses that remains now, in the Tang Dynasty--conveying the 
+            temporal nature of wealth and prosperity.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/AKfEGQC86Nw" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      乌衣巷<br>
+      刘禹锡 〔唐代〕<br>
+      朱雀桥边野草花，<br>乌衣巷口夕阳斜。<br>
+      旧时王谢堂前燕，<br>飞入寻常百姓家。<br>
+    </div>
+
+    <hr>
+    <!--Poem 10: Meeting Li Guinian in Jiangnan-->
+    <div class="poem-description">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <p>The first two sentences recall the time the poet spent with Li Guinian in the past, 
+            expressing the his longing for the heyday in the early years of Kaiyuan (713-741). 
+            The last two sentences express feelings about the decline of state affairs and the 
+            hardships of artists. It expresses the feeling that the times are dying and the 
+            life is desolate and falling.</p>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <iframe src="https://www.youtube.com/embed/Rvwnqd4Jnww" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen class="chinese-video"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chinese-content center-align">
+    江南逢李龟年 <br>
+    杜甫 〔唐代〕<br>
+    岐王宅里寻常见，<br>崔九堂前几度闻。<br>
+    正是江南好风景，<br>落花时节又逢君。<br>
+  </div>
+  </div>
+
+  <!--Footer-->
+  <footer class="page-footer paper">
+    <div class="footer-copyright">
+      <div class="container black-text">
+        © 2021 Calligraphy Simplified <br>
+        Created with ♡ by Jue Gong and Amanda Lin
+      </div>
+    </div>
+  </footer>
+
+  <!--JavaScript & JQuery CDN links at end of body for optimized loading-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./js/canvas.js"></script>
+  <script src="./js/materialize.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <!-- Here is a comment -->
+
+</body>
+
+</html>

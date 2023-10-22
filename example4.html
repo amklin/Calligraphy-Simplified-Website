@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--This template provides the boilerplate required to start a project with MaterializeCSS-->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css via CDN link-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--If you import more than 1 cSS file, be aware that the styles are applied in the order they are linked-->
+  <link rel="stylesheet" href="./css/style.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food!</title>
+</head>
+
+<!-- This is the body-->
+
+<body>
+  <!--navbar-->
+  <!-- Dropdown Structure -->
+  <ul id="writing-practice-examples" class="dropdown-content paper lighten-1">
+    <li><a href="#">Writing Practice<i class="material-icons right">arrow_drop_up</i></a></li>
+    <li><a href="./example1.html">三字经: Three Character Classic</a></li>
+    <li><a href="./example2.html">唐诗: Tang Dynasty Poems</a></li>
+    <li><a href="./example3.html">Strokes & Radicals</a></li>
+    <li class="active"><a href="./example4.html">Food!</a></li>
+    <li><a href="./example5.html">For Fun: Other Scripts</a></li>
+  </ul>
+  <!--sidenav-->
+  <ul id="slide-out" class="sidenav sidenav-fixed paper lighten-1">
+    <li class="center-align website-name"><b><i class="material-icons">brush</i> Calligraphy Simplified</b></li>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./faq.html">FAQs</a></li>
+    <li><a href="./strokes.html">Stroke Basics</a></li>
+    <li><a href="./radicals.html">Radicals</a></li>
+    <li class="active"><a class="dropdown-trigger" href="#" data-target="writing-practice-examples">Writing Practice<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="./saved-images.html">View Saved Images</a></li>
+    <div class="navbar-firebase">
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="insert-modal"><i class="material-icons left">add_circle</i>Insert</a>
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="update-modal"><i class="material-icons left">update</i>Update</a>
+    </div>
+  </ul>
+
+  <!--menu button for tablet/mobile-->
+  <div id="menu-button" class="show-on-med-and-down">
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+
+  <!--Canvas-->
+  <div class='canvas'>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Canvas control Buttons -->
+  <menu class="close zi">
+    <!-- turns on canvas initially and functions as reset/clear button after initialization -->
+    <button id="reset" class="action"><i class="fas fa-info fa-2x material-icons">refresh</i></button>
+    <!--changes visibility of the canvas for the user but doesn't clear it-->
+    <button id="onoff" class="action"><i class="fas fa-question fa-2x material-icons">visibility</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the range input below allows user to change thickness of stroke-->
+    <button id="thickness" class="fas fa-clock fa-2x action"><i class="material-icons">line_weight</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the color input below allows user to change color of stroke-->
+    <button id="colorpick" class="fas fa-gift fa-2x action"><i class="material-icons">color_lens</i></button>
+
+    <!--thickness changing input below button-->
+    <input type="range" id="customThicknessInput" min="1" max="20" value="5" step="1" style="display:none"><i
+      class="fas fa-clock fa-2x"></i></input>
+
+    <!--color changing input below button-->
+    <div>
+      <input type="color" id="customColorPickInput" style="display:none">
+    </div>
+
+    <!--main button that opens the series of buttons-->
+    <button class="trigger" id="settings"><i class="fas fa-plus fa-1x material-icons">settings</i></button>
+  </menu>
+
+  <!--Help button triggering modal popup-->
+  <div>
+    <!-- Modal Trigger -->
+    <button data-target="modal1" class="btn modal-trigger" id="help-button"><i
+        class="material-icons">help_outline</i></button>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Canvas Instructions</h4>
+        <p>To use the canvas, click on <i class="material-icons">settings</i> in the upper right corner of the screen.
+        </p>
+        <p>Each of the buttons that pops up toggles a different setting.</p>
+        <p><i class="material-icons">clear</i>: Clears the canvas. You can also use the escape key to clear the
+          canvas.</p>
+        <p><i class="material-icons">edit</i>: Turns the canvas on and off without erasing what is currently on the
+          canvas.</p>
+        <p><i class="material-icons">line_weight</i>: Adjusts the thickness of the line.</p>
+        <p><i class="material-icons">color_lens</i>: Change the color of the brush</p>
+        <p>The canvas default is off. To turn on the canvas for the first time use either the <i
+            class="material-icons">clear</i> or <i class="material-icons">edit</i> button.</p>
+        <p>Warning: Don't change the window size while writing. If you change the window size, use the reset button to
+          ensure that everything functions correctly.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-paper btn-flat">Close</a>
+      </div>
+    </div>
+  </div>
+
+<!--Firebase modal asking for username and password-->
+<div id="insert-modal" class="modal">
+  <div class="modal-content">
+    <div class="input-field">
+      <input id="username-text-insert" type="text" class="validate">
+      <label for="username-text-insert">Username</label>
+    </div>
+  
+    <div class="input-field">
+      <input id="password-text-insert" type="password" class="validate">
+      <label for="password-text-insert">Password</label>
+    </div>
+
+    <div class="input-field">
+      <textarea id="image-description-insert" class="materialize-textarea"></textarea>
+      <label for="image-description-insert">Image Description</label>
+    </div>
+
+    <a class="waves-effect waves-green light-green btn firebase-buttons" id="insert-btn"><i class="material-icons left">add_circle</i>Insert</a>
+  </div>
+</div>
+
+<div id="update-modal" class="modal">
+  <div class="modal-content">
+      <div class="input-field">
+        <input id="username-text-update" type="text" class="validate">
+        <label for="username-text-update">Username</label>
+      </div>
+    
+      <div class="input-field">
+        <input id="password-text-update" type="password" class="validate">
+        <label for="password-text-update">Password</label>
+      </div>
+
+      <div class="input-field">
+        <textarea id="image-description-update" class="materialize-textarea"></textarea>
+        <label for="timage-description-update">Image Description</label>
+      </div>
+
+      <a class="waves-effect waves-green light-green btn firebase-buttons" id="update-btn"><i class="material-icons left">update</i>Update</a>
+
+  </div>
+</div>
+
+  <!--Header with parallax image-->
+  <div class="parallax-container header-img">
+    <div class="parallax"><img src='Images/foodheader.jpeg' /></div>
+    <!--http://m.zjgf88.com/uploads/20191228/1577514020979772.jpeg-->
+    <!--from: http://m.zjgf88.com/article/20191228142050.html-->
+  </div>
+  <h1 class="paper-text header-text">Food!</h1>
+
+  <!--main information content-->
+  <div class="information">
+    <h3 class="center" style="font-family: STKaiti"> - Key Lime Pie - </h3>
+    <br>
+    <img class="center" style="width: 100%; opacity: 0.7;"
+      src="Images/keyLimePie.jpeg">
+      <!--source: https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2018%2F07%2Fkey-lime-pie-tips-ft-blog0618.jpg&q=85-->
+    <p style="position: relative;
+      top: -475px;
+      left: 30%;
+      font-family: STKaiti;
+      font-size: 100px;">柠檬派</p>
+
+    <!--Bread-->
+    <h3 class="center" style="font-family: STKaiti; position: relative;
+    top: -300px;"> - Bread - </h3>
+    <br>
+    <img class="center" style="width: 100%; opacity: 0.7; position: relative;
+    top: -330px;"
+      src="Images/letsgetthisbread.jpeg">
+      <!--source: https://static01.nyt.com/images/2021/05/05/dining/03Kenjirex3/merlin_186913437_0d3e38a5-dd9b-45ad-b9a9-4fdd2fb90a81-articleLarge.jpg-->
+    <p style="position: relative;
+      top: -770px;
+      left: 35%;
+      font-family: STKaiti;
+      font-size: 100px;">面包</p>
+    <br>
+
+    <!--Sweet Osmanthus Taro-->
+    <h3 class="center" style="font-family: STKaiti; position: relative;
+    top: -675px;"> - Sweet Osmanthus Taro - </h3>
+    <br>
+    <img class="center" style="width: 100%; opacity: 0.7; position: relative;
+    top: -700px;" src="Images/osmanthustaro.jpeg">
+    <!--source: https://cp1.douguo.com/upload/caiku/1/5/7/yuan_152d2334642b4c9892391890878027a7.jpg-->
+    <p style="position: relative;
+      top: -1150px;
+      left: 18%;
+      font-family: STKaiti;
+      font-size: 100px;">桂花糖芋苗</p>
+    <br>
+
+    <!--Pork-Rib Lotus Root Soup-->
+    <h3 class="center" style="font-family: STKaiti; position: relative;
+    top: -1050px;"> - Pork-Rib Lotus Root Soup - </h3>
+    <br>
+    <img class="center" style="width: 100%; opacity: 0.7; position: relative;
+    top: -1075px;" src="Images/lotusRoot.jpeg">
+    <!--Source: http://ali.xinshipu.cn/20140913/original/1410562492353.jpg-->
+    <p style="position: relative;
+      top: -1525px;
+      left: 18%;
+      font-family: STKaiti;
+      font-size: 100px;">莲藕排骨汤</p>
+    <br>
+
+    <!--Xiao Long Bao-->
+    <h3 class="center" style="font-family: STKaiti; position: relative;
+    top: -1425px;"> - Xiao Long Bao - </h3>
+    <br>
+    <img class="center" style="width: 100%; opacity: 0.7; position: relative;
+    top: -1450px;" src="Images/bao.jpeg">
+    <!--Source: https://icrvb3jy.xinmedia.com/solomo/article/23729/A26A3716-AA7E-4C81-87AB-CD106B50644E.jpg-->
+    <p style="position: relative;
+      top: -1925px;
+      left: 30%;
+      font-family: STKaiti;
+      font-size: 100px;">小笼包</p>
+    <br>
+
+    <!--Biang Biang Noodles-->
+    <h3 class="center" style="font-family: STKaiti; position: relative;
+    top: -1800px;"> - Biang Biang Noodles - </h3>
+    <br>
+    <img class="center" style="width: 100%; opacity: 0.7; position: relative;
+    top: -1825px;" src="Images/biang.jpeg">
+    <!--Source: https://www.chinasichuanfood.com/wp-content/uploads/2015/09/BIANG.jpg-->
+  </div>
+
+  <!--Space for some food doodles!-->
+  <h3 class="center" style="font-family: STKaiti; position: relative;
+    top: -1800px;"> - a space for doodling some food :) - </h3>
+
+  <!--Footer-->
+  <footer class="page-footer paper">
+    <div class="footer-copyright">
+      <div class="container black-text">
+        © 2021 Calligraphy Simplified <br>
+        Created with ♡ by Jue Gong and Amanda Lin
+      </div>
+    </div>
+  </footer>
+
+  <!--JavaScript & JQuery CDN links at end of body for optimized loading-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./js/canvas.js"></script>
+  <script src="./js/materialize.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <!-- Here is a comment -->
+
+</body>
+
+</html>

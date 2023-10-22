@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--This template provides the boilerplate required to start a project with MaterializeCSS-->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css via CDN link-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--If you import more than 1 cSS file, be aware that the styles are applied in the order they are linked-->
+  <link rel="stylesheet" href="./css/style.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>三字经 | Three Character Classic</title>
+</head>
+
+<!-- This is the body-->
+
+<body>
+  <!--navbar-->
+  <!-- Dropdown Structure -->
+  <ul id="writing-practice-examples" class="dropdown-content paper lighten-1">
+    <li><a href="#">Writing Practice<i class="material-icons right">arrow_drop_up</i></a></li>
+    <li class="active"><a href="./example1.html">三字经: Three Character Classic</a></li>
+    <li><a href="./example2.html">唐诗: Tang Dynasty Poems</a></li>
+    <li><a href="./example3.html">Strokes & Radicals</a></li>
+    <li><a href="./example4.html">Food!</a></li>
+    <li><a href="./example5.html">For Fun: Other Scripts</a></li>
+  </ul>
+  <!--sidenav-->
+  <ul id="slide-out" class="sidenav sidenav-fixed paper lighten-1">
+    <li class="center-align website-name"><b><i class="material-icons">brush</i> Calligraphy Simplified</b></li>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./faq.html">FAQs</a></li>
+    <li><a href="./strokes.html">Stroke Basics</a></li>
+    <li><a href="./radicals.html">Radicals</a></li>
+    <li class="active"><a class="dropdown-trigger" href="#" data-target="writing-practice-examples">Writing Practice<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="./saved-images.html">View Saved Images</a></li>
+    <div class="navbar-firebase">
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="insert-modal"><i class="material-icons left">add_circle</i>Insert</a>
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="update-modal"><i class="material-icons left">update</i>Update</a>
+    </div>
+  </ul>
+
+  <!--menu button for tablet/mobile-->
+  <div id="menu-button" class="show-on-med-and-down">
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+
+  <!--Canvas-->
+  <div class='canvas'>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!--Canvas control Buttons -->
+  <menu class="close zi">
+    <!-- turns on canvas initially and functions as reset/clear button after initialization -->
+    <button id="reset" class="action"><i class="fas fa-info fa-2x material-icons">refresh</i></button>
+    <!--changes visibility of the canvas for the user but doesn't clear it-->
+    <button id="onoff" class="action"><i class="fas fa-question fa-2x material-icons">visibility</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the range input below allows user to change thickness of stroke-->
+    <button id="thickness" class="fas fa-clock fa-2x action"><i class="material-icons">line_weight</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the color input below allows user to change color of stroke-->
+    <button id="colorpick" class="fas fa-gift fa-2x action"><i class="material-icons">color_lens</i></button>
+
+    <!--thickness changing input below button-->
+    <input type="range" id="customThicknessInput" min="1" max="20" value="5" step="1" style="display:none"><i
+      class="fas fa-clock fa-2x"></i></input>
+
+    <!--color changing input below button-->
+    <div>
+      <input type="color" id="customColorPickInput" style="display:none">
+    </div>
+
+    <!--main button that opens the series of buttons-->
+    <button class="trigger" id="settings"><i class="fas fa-plus fa-1x material-icons">settings</i></button>
+  </menu>
+
+  <!--Help button triggering modal popup-->
+  <div>
+    <!-- Modal Trigger -->
+    <button data-target="modal1" class="btn modal-trigger" id="help-button"><i
+        class="material-icons">help_outline</i></button>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Canvas Instructions</h4>
+        <p>To use the canvas, click on <i class="material-icons">settings</i> in the upper right corner of the screen.
+        </p>
+        <p>Each of the buttons that pops up toggles a different setting.</p>
+        <p><i class="material-icons">clear</i>: Clears the canvas. You can also use the escape key to clear the
+          canvas.</p>
+        <p><i class="material-icons">edit</i>: Turns the canvas on and off without erasing what is currently on the
+          canvas.</p>
+        <p><i class="material-icons">line_weight</i>: Adjusts the thickness of the line.</p>
+        <p><i class="material-icons">color_lens</i>: Change the color of the brush</p>
+        <p>The canvas default is off. To turn on the canvas for the first time use either the <i
+            class="material-icons">clear</i> or <i class="material-icons">edit</i> button.</p>
+        <p>Warning: Don't change the window size while writing. If you change the window size, use the reset button to
+          ensure that everything functions correctly.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-paper btn-flat">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <!--Firebase modal asking for username and password-->
+  <div id="insert-modal" class="modal">
+    <div class="modal-content">
+      <div class="input-field">
+        <input id="username-text-insert" type="text" class="validate">
+        <label for="username-text-insert">Username</label>
+      </div>
+    
+      <div class="input-field">
+        <input id="password-text-insert" type="password" class="validate">
+        <label for="password-text-insert">Password</label>
+      </div>
+
+      <div class="input-field">
+        <textarea id="image-description-insert" class="materialize-textarea"></textarea>
+        <label for="image-description-insert">Image Description</label>
+      </div>
+
+      <a class="waves-effect waves-green light-green btn firebase-buttons" id="insert-btn"><i class="material-icons left">add_circle</i>Insert</a>
+    </div>
+  </div>
+
+  <div id="update-modal" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+          <input id="username-text-update" type="text" class="validate">
+          <label for="username-text-update">Username</label>
+        </div>
+      
+        <div class="input-field">
+          <input id="password-text-update" type="password" class="validate">
+          <label for="password-text-update">Password</label>
+        </div>
+
+        <div class="input-field">
+          <textarea id="image-description-update" class="materialize-textarea"></textarea>
+          <label for="timage-description-update">Image Description</label>
+        </div>
+
+        <a class="waves-effect waves-green light-green btn firebase-buttons" id="update-btn"><i class="material-icons left">update</i>Update</a>
+
+    </div>
+  </div>
+
+  <!--Header with parallax image-->
+  <div class="parallax-container header-img">
+    <div class="parallax"><img src='Images/threeCharactersClassicHeaderImg.jpeg'/></div>
+    <!--Source: http://m.zjgf88.com/uploads/20191228/1577514016298827.jpeg-->
+    <!--from: http://m.zjgf88.com/article/20191228142050.html-->
+  </div>
+  <h1 class="paper-text header-text">Example 1: 三字经</h1>
+
+  <!--main content-->
+  <div class="information">
+    <div class="row">
+      <div class="col s12 m12 l6 xl6">
+        <div class="english-description">
+          <p>三字经 (sān zì jīng) is known in English as the Three Character Classic. It is a common text taught to young
+            children and elementary school students as a way of learning about the core principles of Confucianism.</p>
+          <p>It was written in the 13th century during the Song dynasty. Until the late 1800s, it formed the core of a
+            child's Chinese education.</p>
+          <p>Feel free to listen to the audio as you write.</p>
+        </div>
+      </div>
+      <div class="col s12 m12 l6 xl6">
+        <iframe src="https://www.youtube.com/embed/BkHX5CYkRho" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen class="chinese-video"></iframe>
+      </div>
+    </div>
+    <div class="chinese-content center-align">
+      人之初，性本善。性相近，习相远。<br>苟不教，性乃迁。教之道，贵以专。<br>
+      昔孟母，择邻处。子不学，断机杼。<br>窦燕山，有义方。教五子，名俱扬。<br>
+      养不教，父之过。教不严，师之惰。<br>子不学，非所宜。幼不学，老何为。<br>
+      玉不琢，不成器。人不学，不知义。<br>为人子，方少时。亲师友，习礼仪。<br>
+      香九龄，能温席。孝于亲，所当执。<br>融四岁，能让梨，悌于长，宜先知。<br>
+      <br>
+      首孝悌，次见闻。知某数，识某文。<br>一而十，十而百。百而千，千而万。<br>
+      三才者，天地人。三光者，日月星。<br>三纲者，君臣义。父子亲，夫妇顺。<br>
+      曰春夏，曰秋冬。此四时，运不穷。<br>曰南北，曰西东。此四方，应乎中。<br>
+      曰水火，木金土。此五行，本乎数。<br>十干者，甲至癸。十二支，子至亥。<br>
+      曰黄道，日所躔。曰赤道，当中权。<br>赤道下，温暖极。我中华，在东北。<br>
+      <br>
+      寒燠均，霜露改。右高原，左大海。<br>曰江河，曰淮济。此四渎，水之纪。<br>
+      曰岱华，嵩恒衡。此五岳，山之名。<br>古九州，今改制。称行省，三十五。<br>
+      曰士农，曰工商。此四民，国之良。<br>曰仁义，礼智信。此五常，不容紊。<br>
+      地所生，有草木。此植物，遍水陆。<br>有虫鱼，有鸟兽。此动物，能飞走。<br>
+      稻粱菽，麦黍稷。此六谷，人所食。<br>马牛羊，鸡犬豕。此六畜，人所饲。<br>
+      <br>
+      曰喜怒，曰哀惧。爱恶欲，七情俱。<br>青赤黄，及黑白。此五色，目所识。<br>
+      酸苦甘，及辛咸。此五味，口所含。<br>膻焦香，及腥朽。此五臭，鼻所嗅。<br>
+      匏土革，木石金。丝与竹，乃八音。<br>曰平上，曰去入。此四声，宜调协。<br>
+      高曾祖，父而身。身而子，子而孙。<br>自子孙，至玄曾。乃九族，人之伦。<br>
+      父子恩，夫妇从。兄则友，弟则恭。<br>长幼序，友与朋。君则敬，臣则忠。<br>
+      <br>
+      此十义，人所同。当顺叙，勿违背。<br>斩齐衰，大小功。至缌麻，五服终。<br>
+      礼乐射，御书数。古六艺，今不具。<br>惟书学，人共遵。既识字，讲说文。<br>
+      有古文，大小篆。隶草继，不可乱。<br>若广学，惧其繁。但略说，能知原。<br>
+      凡训蒙，须讲究。详训诂，明句读。<br>为学者，必有初。小学终，至四书。<br>
+      论语者，二十篇。群弟子，记善言。<br>孟子者，七篇止。讲道德，说仁义。<br>
+      <br>
+      作中庸，乃孔伋。中不偏，庸不易。<br>作大学，乃曾子。自修齐，至平治。<br>
+      四书熟，孝经通。如六经，始可读。<br>诗书易，礼春秋。号六经，当讲求。<br>
+      有连山，有归藏。有周易，三易详。<br>有典谟，有训诰。有誓命，书之奥。<br>
+      我周公，作周礼。著六官，存治体。<br>大小戴，注礼记。述圣言，礼乐备。<br>
+      曰国风，曰雅颂。号四诗，当讽咏。<br>诗既亡，春秋作。寓褒贬，别善恶。<br>
+      <br>
+      三传者，有公羊。有左氏，有谷梁。<br>经既明，方读子。撮其要，记其事。<br>
+      五子者，有荀扬。文中子，及老庄。<br>经子通，读诸史。考世系，知终始。<br>
+      自羲农，至黄帝。号三皇，居上世。<br>唐有虞，号二帝。相揖逊，称盛世。<br>
+      夏有禹，商有汤。周文武，称三王。<br>夏传子，家天下。四百载，迁夏社。<br>
+      汤伐夏，国号商，六百载，至纣亡。<br>周武王，始诛纣。八百载，最长久。<br>
+      <br>
+      周辙东，王纲坠。逞干戈，尚游说。<br>始春秋，终战国。五霸强，七雄出。<br>
+      嬴秦氏，始兼并。传二世，楚汉争。<br>高祖兴，汉业建。至孝平，王莽篡。<br>
+      光武兴，为东汉。四百年，终于献。<br>魏蜀吴，争汉鼎。号三国，迄两晋。<br>
+      宋齐继，梁陈承。为南朝，都金陵。<br>北元魏，分东西。宇文周，兴高齐。<br>
+      迨至隋，一土宇。不再传，失统绪。<br>唐高祖，起义师。除隋乱，创国基。<br>
+      <br>
+      二十传，三百载。梁灭之，国乃改。<br>梁唐晋，及汉周。称五代，皆有由。<br>
+      炎宋兴，受周禅。十八传，南北混。<br>辽与金，皆称帝。元灭金，绝宋世。<br>
+      舆图广，超前代。九十年，国祚废。<br>太祖兴，国大明。号洪武，都金陵。<br>
+      迨成祖，迁燕京。十六世，至崇祯。<br>权阉肆，寇如林。李闯出，神器焚。<br>
+      清世祖，膺景命。靖四方，克大定。<br>由康雍，历乾嘉，民安富，治绩夸。<br>
+      <br>
+      道咸间，变乱起，始英法，扰都鄙。<br>同光后，宣统弱，传九帝，满清殁。<br>
+      革命兴，废帝制，立宪法，建民国。<br>古今史，全在兹。载治乱，知兴衰。<br>
+      史虽繁，读有次。史记一，汉书二。<br>后汉三，国志四。兼证经，参通鉴。<br>
+      读史者，考实录。通古今，若亲目。<br>口而诵，心而惟。朝于斯，夕于斯。<br>
+      昔仲尼，师项橐。古圣贤，尚勤学。<br>赵中令，读鲁论。彼既仕，学且勤。<br>
+      <br>
+      披蒲编，削竹简。彼无书，且知勉。<br>头悬梁，锥刺股。彼不教，自勤苦。<br>
+      如囊萤，如映雪。家虽贫，学不辍。<br>如负薪，如挂角。身虽劳，犹苦卓。<br>
+      苏老泉，二十七。始发奋，读书籍。<br>彼既老，犹悔迟。尔小生，宜早思。<br>
+      若梁灏，八十二。对大廷，魁多士。<br>彼既成，众称异。尔小生，宜立志。<br>
+      莹八岁，能咏诗。泌七岁，能赋棋。<br>彼颖悟，人称奇。尔幼学，当效之。<br>
+      <br>
+      蔡文姬，能辨琴。谢道韫，能咏吟。<br>彼女子，且聪敏。尔男子，当自警。<br>
+      唐刘晏，方七岁。举神童，作正字。<br>彼虽幼，身已仕。有为者，亦若是。<br>
+      犬守夜，鸡司晨。苟不学，曷为人。<br>蚕吐丝，蜂酿蜜。人不学，不如物。<br>
+      幼而学，壮而行。上致君，下泽民。<br>扬名声，显父母。光于前，裕于后。<br>
+      人遗子，金满赢。我教子，唯一经。<br>勤有功，戏无益。戒之哉，宜勉力。<br>
+
+    </div>
+  </div>
+
+  <!--Footer-->
+  <footer class="page-footer paper">
+    <div class="footer-copyright">
+      <div class="container black-text">
+        © 2021 Calligraphy Simplified <br>
+        Created with ♡ by Jue Gong and Amanda Lin
+      </div>
+    </div>
+  </footer>
+  
+  <!--JavaScript & JQuery CDN links at end of body for optimized loading-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./js/canvas.js"></script>
+  <script src="./js/materialize.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <!-- Here is a comment -->
+
+</body>
+
+</html>

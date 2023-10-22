@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--This template provides the boilerplate required to start a project with MaterializeCSS-->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css via CDN link-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--If you import more than 1 cSS file, be aware that the styles are applied in the order they are linked-->
+  <link rel="stylesheet" href="./css/style.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+</head>
+
+<!-- This is the body-->
+
+<body>
+  <header>
+    <!--navbar-->
+    <!-- Dropdown Structure -->
+    <ul id="writing-practice-examples" class="dropdown-content paper lighten-1">
+      <li><a href="#">Writing Practice<i class="material-icons right">arrow_drop_up</i></a></li>
+      <li><a href="./example1.html">三字经: Three Character Classic</a></li>
+      <li><a href="./example2.html">唐诗: Tang Dynasty Poems</a></li>
+      <li><a href="./example3.html">Strokes & Radicals</a></li>
+      <li><a href="./example4.html">Food!</a></li>
+      <li><a href="./example5.html">For Fun: Other Scripts</a></li>
+    </ul>
+    <!--sidenav-->
+    <ul id="slide-out" class="sidenav sidenav-fixed paper lighten-1">
+      <li class="center-align website-name"><b><i class="material-icons">brush</i> Calligraphy Simplified</b></li>
+      <li class="active"><a href="./index.html">Home</a></li>
+      <li><a href="./faq.html">FAQs</a></li>
+      <li><a href="./strokes.html">Stroke Basics</a></li>
+      <li><a href="./radicals.html">Radicals</a></li>
+      <li><a class="dropdown-trigger" href="#" data-target="writing-practice-examples">Writing Practice<i
+            class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a href="./saved-images.html">View Saved Images</a></li>      
+      <div class="navbar-firebase">
+        <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="insert-modal"><i class="material-icons left">add_circle</i>Insert</a>
+        <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="update-modal"><i class="material-icons left">update</i>Update</a>
+      </div>
+    </ul>
+
+    <!--menu button for tablet/mobile-->
+    <div id="menu-button" class="show-on-med-and-down">
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+
+  <!--Canvas-->
+  <div class='canvas'>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Nav Buttons -->
+  <menu class="close zi">
+    <!-- turns on canvas initially and functions as reset/clear button after initialization -->
+    <button id="reset" class="action"><i class="fas fa-info fa-2x material-icons">refresh</i></button>
+    <!--changes visibility of the canvas for the user but doesn't clear it-->
+    <button id="onoff" class="action"><i class="fas fa-question fa-2x material-icons">visibility</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the range input below allows user to change thickness of stroke-->
+    <button id="thickness" class="fas fa-clock fa-2x action"><i class="material-icons">line_weight</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the color input below allows user to change color of stroke-->
+    <button id="colorpick" class="fas fa-gift fa-2x action"><i class="material-icons">color_lens</i></button>
+
+    <!--thickness changing input below button-->
+    <input type="range" id="customThicknessInput" min="1" max="20" value="5" step="1" style="display:none"><i
+      class="fas fa-clock fa-2x"></i></input>
+
+    <!--color changing input below button-->
+    <div>
+      <input type="color" id="customColorPickInput" style="display:none">
+    </div>
+
+    <!--main button that opens the series of buttons-->
+    <button class="trigger" id="settings"><i class="fas fa-plus fa-1x material-icons">settings</i></button>
+  </menu>
+
+   <!--Help button triggering modal popup-->
+   <div>
+    <!-- Modal Trigger -->
+    <button data-target="help-modal" class="btn modal-trigger" id="help-button"><i
+        class="material-icons">help_outline</i></button>
+
+    <!-- Help Modal Structure -->
+    <div id="help-modal" class="modal">
+      <div class="modal-content">
+        <h4>Canvas Instructions</h4>
+        <p>To use the canvas, click on <i class="material-icons">settings</i> in the upper right corner of the screen.
+        </p>
+        <p>Each of the buttons that pops up toggles a different setting.</p>
+        <p><i class="material-icons">refresh</i>: Clears the canvas. You can also the escape key to clear the
+          canvas.</p>
+        <p><i class="material-icons">visibility</i>: Turns the canvas on and off without erasing what is currently on the
+          canvas.</p>
+        <p><i class="material-icons">line_weight</i>: Use the slider below the icon to adjust the line width.</p>
+        <p><i class="material-icons">color_lens</i>: Use the color picker below the icon to change the color.</p>
+        <p>The canvas default is off. To turn on the canvas for the first time use the <i class="material-icons">refresh</i>
+          button.</p>
+        <p>Warning: Don't change the window size while writing. If you change the window size, use the <i
+            class="material-icons">refresh</i> button to ensure that everything functions correctly.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-paper btn-flat">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <!--Firebase modal asking for username and password-->
+  <div id="insert-modal" class="modal">
+    <div class="modal-content">
+      <div class="input-field">
+        <input id="username-text-insert" type="text" class="validate">
+        <label for="username-text-insert">Username</label>
+      </div>
+    
+      <div class="input-field">
+        <input id="password-text-insert" type="password" class="validate">
+        <label for="password-text-insert">Password</label>
+      </div>
+
+      <div class="input-field">
+        <textarea id="image-description-insert" class="materialize-textarea"></textarea>
+        <label for="image-description-insert">Image Description</label>
+      </div>
+
+      <a class="waves-effect waves-green light-green btn firebase-buttons" id="insert-btn"><i class="material-icons left">add_circle</i>Insert</a>
+    </div>
+  </div>
+
+  <div id="update-modal" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+          <input id="username-text-update" type="text" class="validate">
+          <label for="username-text-update">Username</label>
+        </div>
+      
+        <div class="input-field">
+          <input id="password-text-update" type="password" class="validate">
+          <label for="password-text-update">Password</label>
+        </div>
+
+        <div class="input-field">
+          <textarea id="image-description-update" class="materialize-textarea"></textarea>
+          <label for="timage-description-update">Image Description</label>
+        </div>
+
+        <a class="waves-effect waves-green light-green btn firebase-buttons" id="update-btn"><i class="material-icons left">update</i>Update</a>
+
+    </div>
+  </div>
+
+    <!--header-->
+    <div class="parallax-container header-img">
+      <div class="parallax"><img src='Images/indexHeader.jpg' />
+        <!--Source: http://p1.pstatp.com/large/tos-cn-i-0022/b3ddb51ebd564e1aad3c9a35fa8b420a-->
+      </div>
+    </div>
+    <h1 class='header-text'>Welcome!</h1>
+  </header>
+
+  <!--introduction texts-->
+  <div class="content">
+    <div class="information">
+      <p>Hello, and welcome to Calligraphy Simplified!</p>
+      <p>On the pages of this website, you will find resources to help you start learning Chinese.</p>
+      <p>The vast majority of these resources will focus on learning how to write Chinese, specifically simplified
+        Chinese. For information about the difference between simplified and traditional Chinese, please visit the <a
+          href="/faq.html">FAQ page</a>.</p>
+      <p>You will notice that on many of the pages, there is a built-in canvas. This is so you can practice tracing the
+        characters without even having to leave the website. You can use your mouse, a stylus, or even your finger to
+        trace the characters shown on the page. Once you are done, simply press the space or the backspace key to erase
+        your drawing. For more detailed instructions, click the help button in the bottom right corner of the screen.</p>
+      <p>Good luck, and happy learning!</p>
+    </div>
+
+    <!--carousel images-->
+    <div class="carousel index-images">
+      <img class="carousel-item" src="Images/carouselImage1.jpg">
+        <!--source: https://i.ytimg.com/vi/n3VlapCdmMQ/maxresdefault.jpg-->
+      <img class="carousel-item" src="Images/carouselImage2.jpg">
+        <!--source: https://i.ytimg.com/vi/I3z2-oDJPWY/maxresdefault.jpg-->
+      <img class="carousel-item" src="Images/carouselImage3.jpg">
+        <!--source: https://www.taiwanpanorama.com.tw/s3/tw-panorama.com/Uploads/1996/07/1996.07.028.01.cut.jpg?w=1080&quality=80-->
+      <img class="carousel-item" src="Images/carouselImage4.jpg">
+        <!--source: https://pic1.zhimg.com/v2-752ced3e5ee2886b7d674efa440cd86f_1440w.jpg?source=172ae18b-->
+      <img class="carousel-item" src="Images/carouselImage5.png">
+        <!--source: https://1on1.today/blog/wp-content/uploads/2019/06/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7-2019-06-29-%E4%B8%8B%E5%8D%8812.02.47.png-->
+    </div>
+  </div>
+
+      <!--Footer-->
+      <footer class="page-footer paper">
+        <div class="footer-copyright">
+          <div class="container black-text">
+          © 2021 Calligraphy Simplified <br>
+          Created with ♡ by Jue Gong and Amanda Lin
+          </div>
+        </div>
+      </footer>
+
+  <!--JavaScript & JQuery CDN links at end of body for optimized loading-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./js/canvas.js"></script>
+  <script src="./js/materialize.js"></script>
+  <script type="module" src="./js/firebase.js"></script>
+  <!-- Here is a comment -->
+  </body>
+
+</html>

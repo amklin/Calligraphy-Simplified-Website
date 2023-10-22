@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--This template provides the boilerplate required to start a project with MaterializeCSS-->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css via CDN link-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--If you import more than 1 cSS file, be aware that the styles are applied in the order they are linked-->
+  <link rel="stylesheet" href="./css/style.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radicals</title>
+</head>
+
+<!-- This is the body-->
+
+<body>
+  <!--navbar-->
+  <!-- Dropdown Structure -->
+  <ul id="writing-practice-examples" class="dropdown-content paper lighten-1">
+    <li><a href="#">Writing Practice<i class="material-icons right">arrow_drop_up</i></a></li>
+    <li><a href="./example1.html">三字经: Three Character Classic</a></li>
+    <li><a href="./example2.html">唐诗: Tang Dynasty Poems</a></li>
+    <li><a href="./example3.html">Strokes & Radicals</a></li>
+    <li><a href="./example4.html">Food!</a></li>
+    <li><a href="./example5.html">For Fun: Other Scripts</a></li>
+  </ul>
+  <!--sidenav-->
+  <ul id="slide-out" class="sidenav sidenav-fixed paper lighten-1">
+    <li class="center-align website-name"><b><i class="material-icons">brush</i> Calligraphy Simplified</b></li>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./faq.html">FAQs</a></li>
+    <li><a href="./strokes.html">Stroke Basics</a></li>
+    <li class="active"><a href="./radicals.html">Radicals</a></li>
+    <li><a class="dropdown-trigger" href="#" data-target="writing-practice-examples">Writing Practice<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="./saved-images.html">View Saved Images</a></li>
+    <div class="navbar-firebase">
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="insert-modal"><i class="material-icons left">add_circle</i>Insert</a>
+      <a class="waves-effect waves-green light-green btn firebase-buttons modal-trigger" data-target="update-modal"><i class="material-icons left">update</i>Update</a>
+    </div>
+  </ul>
+
+  <!--menu button for tablet/mobile-->
+  <div id="menu-button" class="show-on-med-and-down">
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+
+  <!--Canvas-->
+  <div class='canvas'>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Canvas control Buttons -->
+  <menu class="close zi">
+    <!-- turns on canvas initially and functions as reset/clear button after initialization -->
+    <button id="reset" class="action"><i class="fas fa-info fa-2x material-icons">refresh</i></button>
+    <!--changes visibility of the canvas for the user but doesn't clear it-->
+    <button id="onoff" class="action"><i class="fas fa-question fa-2x material-icons">visibility</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the range input below allows user to change thickness of stroke-->
+    <button id="thickness" class="fas fa-clock fa-2x action"><i class="material-icons">line_weight</i></button>
+    <!--button itself doesn't do anything (just for visuals) but the color input below allows user to change color of stroke-->
+    <button id="colorpick" class="fas fa-gift fa-2x action"><i class="material-icons">color_lens</i></button>
+
+    <!--thickness changing input below button-->
+    <input type="range" id="customThicknessInput" min="1" max="20" value="5" step="1" style="display:none"><i
+      class="fas fa-clock fa-2x"></i></input>
+
+    <!--color changing input below button-->
+    <div>
+      <input type="color" id="customColorPickInput" style="display:none">
+    </div>
+
+    <!--main button that opens the series of buttons-->
+    <button class="trigger" id="settings"><i class="fas fa-plus fa-1x material-icons">settings</i></button>
+  </menu>
+
+  <!--Help button triggering modal popup-->
+  <div>
+    <!-- Modal Trigger -->
+    <button data-target="modal1" class="btn modal-trigger" id="help-button"><i
+        class="material-icons">help_outline</i></button>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Canvas Instructions</h4>
+        <p>To use the canvas, click on <i class="material-icons">settings</i> in the upper right corner of the screen.
+        </p>
+        <p>Each of the buttons that pops up toggles a different setting.</p>
+        <p><i class="material-icons">refresh</i>: Clears the canvas. You can also use the escape key to clear the
+          canvas.</p>
+        <p><i class="material-icons">visibility</i>: Turns the canvas on and off without erasing what is currently on
+          the
+          canvas.</p>
+        <p><i class="material-icons">line_weight</i>: Use the slider below the icon to adjust the line width.</p>
+        <p><i class="material-icons">color_lens</i>: Use the color picker below the icon to change the color.</p>
+        <p>The canvas default is off. To turn on the canvas for the first time use the <i
+            class="material-icons">refresh</i>
+          button.</p>
+        <p>Warning: Don't change the window size while writing. If you change the window size, use the <i
+            class="material-icons">refresh</i> button to ensure that everything functions correctly.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-paper btn-flat">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <!--Firebase modal asking for username and password-->
+  <div id="insert-modal" class="modal">
+    <div class="modal-content">
+      <div class="input-field">
+        <input id="username-text-insert" type="text" class="validate">
+        <label for="username-text-insert">Username</label>
+      </div>
+    
+      <div class="input-field">
+        <input id="password-text-insert" type="password" class="validate">
+        <label for="password-text-insert">Password</label>
+      </div>
+
+      <div class="input-field">
+        <textarea id="image-description-insert" class="materialize-textarea"></textarea>
+        <label for="image-description-insert">Image Description</label>
+      </div>
+
+      <a class="waves-effect waves-green light-green btn firebase-buttons" id="insert-btn"><i class="material-icons left">add_circle</i>Insert</a>
+    </div>
+  </div>
+
+  <div id="update-modal" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+          <input id="username-text-update" type="text" class="validate">
+          <label for="username-text-update">Username</label>
+        </div>
+      
+        <div class="input-field">
+          <input id="password-text-update" type="password" class="validate">
+          <label for="password-text-update">Password</label>
+        </div>
+
+        <div class="input-field">
+          <textarea id="image-description-update" class="materialize-textarea"></textarea>
+          <label for="timage-description-update">Image Description</label>
+        </div>
+
+        <a class="waves-effect waves-green light-green btn firebase-buttons" id="update-btn"><i class="material-icons left">update</i>Update</a>
+
+    </div>
+  </div>
+
+  <!--Header with parallax image-->
+  <div class="parallax-container header-img">
+    <div class="parallax">
+      <img src='Images/radicalsheader.png' />
+      <!--Source: https://1on1.today/blog/wp-content/uploads/2019/06/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7-2019-06-29-%E4%B8%8B%E5%8D%8812.02.47.png-->
+    </div>
+  </div>
+  <h1 class="paper-text header-text">Chinese Radicals</h4>
+
+    <!--Main information-->
+    <div class="information">
+      <br>
+      <div class="intro-text center-align">Radicals are the backbone of Chinese characters. They can help you get an
+        idea for the meaning or pronunciation of the character. They assist you greatly when trying to learn new
+        characters.
+        <br><br>There are 214 radicals, but you don't need to know all of them. Here are just some of the most commonly
+        used radicals. <br> <br>
+      </div>
+
+      <!--Radical cards-->
+      <div class="row">
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">草字头 (cǎo zì tóu)</span>
+              <p class="radical-trace center-align">艹</p>
+              <p>Meaning: grass</p>
+              <ul>
+                <li>Examples:</li>
+                <li>草 (cǎo): grass</li>
+                <li>花 (huā): flower</li>
+                <li>茶 (chá): tea</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper darken-2 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">三点水 (sān diǎn shuǐ)</span>
+              <p class="radical-trace center-align"> 氵</p>
+              <p>Meaning: water</p>
+              <ul>
+                <li>Examples:</li>
+                <li>海 (hǎi): ocean</li>
+                <li>河 (hé): stream</li>
+                <li>流 (liú): to flow</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper lighten-2 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">人字旁 (rén zì páng)</span>
+              <p class="radical-trace center-align"> 亻</p>
+              <p>Meaning: person</p>
+              <ul>
+                <li>Examples:</li>
+                <li>他 (tā): he, him</li>
+                <li>位 (wèi): position</li>
+                <li>做 (zuò): to work</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper darken-1 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">提手旁 (tí shǒu páng)</span>
+              <p class="radical-trace center-align"> 扌</p>
+              <p>Meaning: hand</p>
+              <ul>
+                <li>Examples:</li>
+                <li>推 (tuī): to push</li>
+                <li>拉 (lā): to pull</li>
+                <li>打 (dǎ): to hit</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper lighten-3 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">言字旁 (yán zì páng)</span>
+              <p class="radical-trace center-align"> 讠</p>
+              <p>Meaning: speech</p>
+              <ul>
+                <li>Examples:</li>
+                <li>说 (shuō): to speak</li>
+                <li>语 (yǔ): language</li>
+                <li>讨 (tǎo): to discuss</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">口字旁 (kǒu zì páng)</span>
+              <p class="radical-trace center-align">口</p>
+              <p>Meaning: mouth</p>
+              <ul>
+                <li>Examples:</li>
+                <li>喉咙 (hóulóng): throat</li>
+                <li>呢 (nē): particle, for questions</li>
+                <li>听 (tīng): listen</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper darken-2 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">女字旁 (nǚ zì páng)</span>
+              <p class="radical-trace center-align">女</p>
+              <p>Meaning: woman</p>
+              <ul>
+                <li>Examples:</li>
+                <li>妈 (mā): mother</li>
+                <li>好 (hǎo): good</li>
+                <li>姐 (jiě): elder sister</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper lighten-2 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">竖心旁 (shù xīn páng)</span>
+              <p class="radical-trace center-align">忄</p>
+              <p>Meaning: heart</p>
+              <ul>
+                <li>Examples:</li>
+                <li>怪 (guài): strange</li>
+                <li>忆 (yì): memory</li>
+                <li>快 (kuài): fast</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper darken-1 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">木字旁 (mù zì páng)</span>
+              <p class="radical-trace center-align">木</p>
+              <p>Meaning: wood</p>
+              <ul>
+                <li>Examples:</li>
+                <li>树 (shù): tree</li>
+                <li>林 (lín): forest</li>
+                <li>校 (xiào): school</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper lighten-3 z-depth-5">
+            <div class="card-content black-text">
+              <span class="card-title">绞丝旁 (jiǎo sī páng)</span>
+              <p class="radical-trace center-align"> 纟</p>
+              <p>Meaning: silk</p>
+              <ul>
+                <li>Examples:</li>
+                <li>红 (hóng): paper</li>
+                <li>纸 (zhǐ): paper</li>
+                <li>线 (xiàn): line, thread</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">金字旁 (jīn zì páng)</span>
+              <p class="radical-trace center-align"> 钅</p>
+              <p>Meaning: metal</p>
+              <ul>
+                <li>Examples:</li>
+                <li>针 (zhēn): needle</li>
+                <li>钱 (qián): money</li>
+                <li>钟 (zhōng): clock</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l6 xl4">
+          <div class="card paper darken-2 z-depth-3">
+            <div class="card-content black-text">
+              <span class="card-title">日字旁 (rì zì páng)</span>
+              <p class="radical-trace center-align">日</p>
+              <p>Meaning: sun</p>
+              <ul>
+                <li>Examples:</li>
+                <li>时 (shí): time</li>
+                <li>晚 (wǎn): night</li>
+                <li>明 (míng): clear, bright</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--Footer-->
+      <footer class="page-footer paper">
+        <div class="footer-copyright">
+          <div class="container black-text">
+            © 2021 Calligraphy Simplified <br>
+            Created with ♡ by Jue Gong and Amanda Lin
+          </div>
+        </div>
+      </footer>
+
+      <!--JavaScript & JQuery CDN links at end of body for optimized loading-->
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script src="./js/canvas.js"></script>
+      <script src="./js/materialize.js"></script>
+      <script type="module" src="./js/firebase.js"></script>
+      <!-- Here is a comment -->
+
+    </div>
+</body>
+
+</html>
